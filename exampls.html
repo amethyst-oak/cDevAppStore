@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <title>404Pay App-Store</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +35,180 @@
             flex-direction: column;
         }
         .app-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background-color: #ddd;
+            margin-right: 15px;
+            float: left;
+        }
+        .app-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .app-developer {
+            color: #95989c;
+            font-size: 0.9em;
+        }
+        .app-description {
+            margin: 10px 0;
+            flex-grow: 1;
+        }
+        .download-btn-container {
+            margin-top: auto;
+        }
+        .download-btn {
+            background-color: #333333;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .download-btn:hover {
+            background-color: #3367d6;
+        }
+        .search-bar {
+            padding: 10px;
+            width: 80%;
+            margin: 20px auto;
+            display: block;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        .no-results {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+            font-size: 18px;
+        }
+        .app-size {
+            color: #95989c;
+            font-size: 0.8em;
+            margin: 5px 0;
+        }
+        .clearfix {
+            clear: both;
+        }
+        div {
+        color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logotype2.png">
+    </header>
+
+    <input type="text" id="searchInput" class="search-bar" placeholder="Поиск приложений..." oninput="searchApps()">
+
+    <div id="appContainer" class="app-container">
+        <!-- Приложения будут загружаться здесь через JavaScript -->
+    </div>
+
+    <div id="noResults" class="no-results" style="display: none;">
+        Приложений не найдено. Попробуйте другой запрос.
+    </div>
+
+    <script>
+        // Массив с данными приложений
+        const apps = [
+            {
+                id: 1,
+                title: "Фоторедактор Pro",
+                developer: "Creative Apps Inc.",
+                description: "Мощный редактор фотографий для вашего устройства",
+                category: "Фото",
+                downloadUrl: "https://example.com/download/photo-editor.apk",
+                size: "15.4 MB",
+                version: "2.3.1"
+            },
+            {
+                id: 2,
+                title: "Музыкальный Плеер",
+                developer: "SoundMaster",
+                description: "Слушайте музыку в высоком качестве",
+                category: "Музыка",
+                downloadUrl: "https://example.com/download/music-player.apk",
+                size: "8.2 MB",
+                version: "1.5.0"
+            },
+            {
+                id: 3,
+                title: "Фитнес Трекер",
+                developer: "Health Solutions",
+                description: "Отслеживайте вашу активность и прогресс",
+                category: "Здоровье",
+                downloadUrl: "https://example.com/download/fitness-tracker.apk",
+                size: "12.7 MB",
+                version: "3.0.2"
+            },
+            {
+                id: 4,
+                title: "Календарь+",
+                developer: "Productivity Tools",
+                description: "Умный календарь с напоминаниями",
+                category: "Продуктивность",
+                downloadUrl: "https://example.com/download/calendar-plus.apk",
+                size: "5.9 MB",
+                version: "1.2.4"
+            }
+        ];
+
+        // Функция для отображения приложений
+        function displayApps(appsToDisplay) {
+            const appContainer = document.getElementById('appContainer');
+            appContainer.innerHTML = '';
+
+            if (appsToDisplay.length === 0) {
+                document.getElementById('noResults').style.display = 'block';
+            } else {
+                document.getElementById('noResults').style.display = 'none';
+                appsToDisplay.forEach(app => {
+                    const appCard = document.createElement('div');
+                    appCard.className = 'app-card';
+                    appCard.innerHTML = `
+                        <div class="app-icon"></div>
+                        <div class="app-title">${app.title}</div>
+                        <div class="app-developer">${app.developer}</div>
+                        <div class="app-description">${app.description}</div>
+                        <div class="app-size">Версия: ${app.version} | Размер: ${app.size}</div>
+                        <div class="download-btn-container">
+                            <a href="${app.downloadUrl}" class="download-btn" download="${app.title.replace(/\s+/g, '-').toLowerCase()}.apk">Скачать</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    `;
+                    appContainer.appendChild(appCard);
+                });
+            }
+        }
+
+        // Функция поиска приложений
+        function searchApps() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredApps = apps.filter(app => 
+                app.title.toLowerCase().includes(searchTerm) || 
+                app.developer.toLowerCase().includes(searchTerm) || 
+                app.description.toLowerCase().includes(searchTerm) ||
+                app.category.toLowerCase().includes(searchTerm)
+            );
+            
+            displayApps(filteredApps);
+        }
+
+        // Инициализация - показываем все приложения при загрузке
+        window.onload = function() {
+            displayApps(apps);
+        };
+    </script>
+</body>
+</html>        .app-icon {
             width: 60px;
             height: 60px;
             border-radius: 12px;
