@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>404Pay App-Store</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #636b66;
+        }
+        header {
+            background-color: #333333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        footer {
+            background-color: #333333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .app-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+            gap: 15px;
+        }
+        .app-card {
+            background: #404142;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px;
+            width: 250px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background-color: #ddd;
+            margin-right: 15px;
+            float: left;
+        }
+        .app-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .app-developer {
+            color: #95989c;
+            font-size: 0.9em;
+        }
+        .app-description {
+            margin: 10px 0;
+            flex-grow: 1;
+        }
+        .download-btn-container {
+            margin-top: auto;
+        }
+        .download-btn {
+            background-color: #333333;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .download-btn:hover {
+            background-color: #3367d6;
+        }
+        .search-bar {
+            padding: 10px;
+            width: 80%;
+            margin: 20px auto;
+            display: block;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        .no-results {
+            text-align: center;
+            padding: 50px;
+            color: #95989c;
+            font-size: 18px;
+        }
+        .app-size {
+            color: #95989c;
+            font-size: 0.8em;
+            margin: 5px 0;
+        }
+        .clearfix {
+            clear: both;
+        }
+        div {
+            color: white;
+        }
+        /* Стили для вкладок */
+        .tabs {
+            display: flex;
+            background-color: #333333;
+            border-bottom: 1px solid #444;
+        }
+        .tab {
+            padding: 14px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+            flex: 1;
+            color: white;
+        }
+        .tab:hover {
+            background-color: #444;
+        }
+        .tab.active {
+            background-color: #4285f4;
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        /* Стили для раздела помощи */
+        .help-content {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #444;
+        }
+        .faq-question {
+            font-weight: bold;
+            color: #4285f4;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logotype2.png" alt="404Pay Logo">
+    </header>
+
+    <div class="tabs">
+        <div class="tab active" data-tab="apps">Приложения</div>
+        <div class="tab" data-tab="games">Игры</div>
+        <div class="tab" data-tab="help">Помощь</div>
+    </div>
+
+    <div id="apps" class="tab-content active">
+        <input type="text" id="searchInput" class="search-bar" placeholder="Поиск приложений..." oninput="searchApps()">
+        <div id="appContainer" class="app-container"></div>
+        <div id="noResults" class="no-results" style="display: none;">
+            Приложений не найдено. Попробуйте другой запрос, или предложите свое приложение через Контакты в "Помощь".
+        </div>
+    </div>
+
+    <div id="games" class="tab-content">
+        <input type="text" id="searchGamesInput" class="search-bar" placeholder="Поиск игр..." oninput="searchGames()">
+        <div id="gamesContainer" class="app-container"></div>
+        <div id="noGamesResults" class="no-results" style="display: none;">
+            Игр с таким названием не найдено. Попробуйте другой запрос, или предложите свою игру через контакты в "Помощь".
+        </div>
+    </div>
+
+    <div id="help" class="tab-content">
+        <div class="help-content">
+            <h2>Часто задаваемые вопросы</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Как установить приложение?</div>
+                <div class="faq-answer">
+                    1. Нажмите кнопку "Скачать"<br>
+                    2. Откройте скачанный файл .apk<br>
+                    3. Следуйте инструкциям установщика
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Приложение не устанавливается, что делать?</div>
+                <div class="faq-answer">
+                    - Убедитесь, что на устройстве свободно хотя бы 700 или больше МБ (зависит от приложения)<br>
+                    - Проверьте, ниже ли ваша версия Android, если да, то запросите старую версию.<br>
+                    - Попробуйте перезагрузить устройство. Могут быть сбои в Андроиде, и приложение не устанавливается из-за этого.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Как удалить приложение?</div>
+                <div class="faq-answer">
+                    Перейдите в Настройки → Приложения → Выберите нужное приложение → Нажмите "Удалить" (логично)
+                </div>
+            </div>
+            
+            <h2>Контакты поддержки</h2>
+            <p>Telegram: @justmineplayerB</p>
+        </div>
+    </div>
+
+    <footer><p>404Pay - Магазин приложений completedev. @2023-2025.</p></footer>
+
+    <script>
+        // Массив с данными приложений
+        const apps = [
+            {
+                id: 1,
+                title: "Фоторедактор Pro",
+                developer: "Creative Apps Inc.",
+                description: "Мощный редактор фотографий для вашего устройства",
+                category: "Фото",
+                downloadUrl: "https://example.com/download/photo-editor.apk",
+                size: "15.4 MB",
+                version: "2.3.1"
+            },
+            {
+                id: 2,
+                title: "Музыкальный Плеер",
+                developer: "SoundMaster",
+                description: "Слушайте музыку в высоком качестве",
+                category: "Музыка",
+                downloadUrl: "https://example.com/download/music-player.apk",
+                size: "8.2 MB",
+                version: "1.5.0"
+            },
+            {
+                id: 3,
+                title: "Фитнес Трекер",
+                developer: "Health Solutions",
+                description: "Отслеживайте вашу активность и прогресс",
+                category: "Здоровье",
+                downloadUrl: "https://example.com/download/fitness-tracker.apk",
+                size: "12.7 MB",
+                version: "3.0.2"
+            },
+            {
+                id: 4,
+                title: "Календарь+",
+                developer: "Productivity Tools",
+                description: "Умный календарь с напоминаниями",
+                category: "Продуктивность",
+                downloadUrl: "https://example.com/download/calendar-plus.apk",
+                size: "5.9 MB",
+                version: "1.2.4"
+            }
+        ];
+
+        // Массив с данными игр
+        const games = [
+            {
+                id: 1,
+                title: "Гонки на выживание",
+                developer: "GameDev Studio",
+                description: "Экстремальные гонки с препятствиями",
+                category: "Гонки",
+                downloadUrl: "https://example.com/download/racing-game.apk",
+                size: "45.3 MB",
+                version: "1.2.5"
+            },
+            {
+                id: 2,
+                title: "Стратегия Империй",
+                developer: "Strategy Games Ltd",
+                description: "Постройте свою империю и завоюйте мир",
+                category: "Стратегия",
+                downloadUrl: "https://example.com/download/empire-strategy.apk",
+                size: "78.6 MB",
+                version: "2.1.0"
+            }
+        ];
+
+        // Функция для отображения приложений
+        function displayApps(appsToDisplay) {
+            const appContainer = document.getElementById('appContainer');
+            appContainer.innerHTML = '';
+
+            if (appsToDisplay.length === 0) {
+                document.getElementById('noResults').style.display = 'block';
+            } else {
+                document.getElementById('noResults').style.display = 'none';
+                appsToDisplay.forEach(app => {
+                    const appCard = document.createElement('div');
+                    appCard.className = 'app-card';
+                    appCard.innerHTML = `
+                        <div class="app-icon"></div>
+                        <div class="app-title">${app.title}</div>
+                        <div class="app-developer">${app.developer}</div>
+                        <div class="app-description">${app.description}</div>
+                        <div class="app-size">Версия: ${app.version} | Размер: ${app.size}</div>
+                        <div class="download-btn-container">
+                            <a href="${app.downloadUrl}" class="download-btn" download="${app.title.replace(/\s+/g, '-').toLowerCase()}.apk">Скачать</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    `;
+                    appContainer.appendChild(appCard);
+                });
+            }
+        }
+
+        // Функция для отображения игр
+        function displayGames(gamesToDisplay) {
+            const gamesContainer = document.getElementById('gamesContainer');
+            gamesContainer.innerHTML = '';
+
+            if (gamesToDisplay.length === 0) {
+                document.getElementById('noGamesResults').style.display = 'block';
+            } else {
+                document.getElementById('noGamesResults').style.display = 'none';
+                gamesToDisplay.forEach(game => {
+                    const gameCard = document.createElement('div');
+                    gameCard.className = 'app-card';
+                    gameCard.innerHTML = `
+                        <div class="app-icon"></div>
+                        <div class="app-title">${game.title}</div>
+                        <div class="app-developer">${game.developer}</div>
+                        <div class="app-description">${game.description}</div>
+                        <div class="app-size">Версия: ${game.version} | Размер: ${game.size}</div>
+                        <div class="download-btn-container">
+                            <a href="${game.downloadUrl}" class="download-btn" download="${game.title.replace(/\s+/g, '-').toLowerCase()}.apk">Скачать</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    `;
+                    gamesContainer.appendChild(gameCard);
+                });
+            }
+        }
+
+        // Функция поиска приложений
+        function searchApps() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredApps = apps.filter(app => 
+                app.title.toLowerCase().includes(searchTerm) || 
+                app.developer.toLowerCase().includes(searchTerm) || 
+                app.description.toLowerCase().includes(searchTerm) ||
+                app.category.toLowerCase().includes(searchTerm)
+            );
+            
+            displayApps(filteredApps);
+        }
+
+        // Функция поиска игр
+        function searchGames() {
+            const searchTerm = document.getElementById('searchGamesInput').value.toLowerCase();
+            const filteredGames = games.filter(game => 
+                game.title.toLowerCase().includes(searchTerm) || 
+                game.developer.toLowerCase().includes(searchTerm) || 
+                game.description.toLowerCase().includes(searchTerm) ||
+                game.category.toLowerCase().includes(searchTerm)
+            );
+            
+            displayGames(filteredGames);
+        }
+
+        // Переключение вкладок
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Удаляем активный класс у всех вкладок и контента
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Добавляем активный класс к выбранной вкладке и соответствующему контенту
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Инициализация - показываем все приложения и игры при загрузке
+        window.onload = function() {
+            displayApps(apps);
+            displayGames(games);
+        };
+    </script>
+</body>
+</html>
