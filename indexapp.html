@@ -14,8 +14,73 @@
         header {
             background-color: #333333;
             color: white;
-            padding: 15px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .menu-btn {
+            width: 30px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+        .menu-btn span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: white;
+            border-radius: 2px;
+        }
+        .logo {
+            height: 40px;
+            margin-right: 20px;
+        }
+        .menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #333333;
+            width: 200px;
+            display: none;
+            z-index: 100;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        }
+        .menu.active {
+            display: block;
+        }
+        .menu-item {
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        .menu-item:hover {
+            background-color: #4285f4;
+        }
+        .tabs {
+            display: flex;
+            background-color: #333333;
+            border-bottom: 1px solid #444;
+        }
+        .tab {
+            padding: 14px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
             text-align: center;
+            flex: 1;
+            color: white;
+        }
+        .tab:hover {
+            background-color: #444;
+        }
+        .tab.active {
+            background-color: #4285f4;
+            font-weight: bold;
         }
         footer {
             background-color: #333333;
@@ -91,7 +156,7 @@
         .no-results {
             text-align: center;
             padding: 50px;
-            color: #95989c;
+            color: #666;
             font-size: 18px;
         }
         .app-size {
@@ -105,65 +170,44 @@
         div {
             color: white;
         }
-        /* Стили для вкладок */
-        .tabs {
-            display: flex;
-            background-color: #333333;
-            border-bottom: 1px solid #444;
-        }
-        .tab {
-            padding: 14px 20px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            text-align: center;
-            flex: 1;
-            color: white;
-        }
-        .tab:hover {
-            background-color: #444;
-        }
-        .tab.active {
-            background-color: #4285f4;
-            font-weight: bold;
-        }
         .tab-content {
             display: none;
         }
         .tab-content.active {
             display: block;
         }
-        /* Стили для раздела помощи */
         .help-content {
             padding: 20px;
             max-width: 800px;
             margin: 0 auto;
         }
-        .faq-item {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #444;
-        }
-        .faq-question {
-            font-weight: bold;
-            color: #4285f4;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
-    
+    <header>
+        <div class="menu-btn" id="menuBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="menu" id="menu">
+            <a href="#" class="menu-item" onclick="showTab('apps')">Приложения</a>
+            <a href="#" class="menu-item" onclick="showTab('games')">Игры</a>
+            <a href="#" class="menu-item" onclick="showTab('help')">Помощь</a>
+        </div>
+        <img src="logotype2.png" class="logo" alt="404Pay Logo">
+    </header>
 
     <div class="tabs">
         <div class="tab active" data-tab="apps">Приложения</div>
         <div class="tab" data-tab="games">Игры</div>
-        <div class="tab" data-tab="help">Помощь</div>
     </div>
 
     <div id="apps" class="tab-content active">
         <input type="text" id="searchInput" class="search-bar" placeholder="Поиск приложений..." oninput="searchApps()">
         <div id="appContainer" class="app-container"></div>
         <div id="noResults" class="no-results" style="display: none;">
-            Приложений не найдено. Попробуйте другой запрос, или предложите свое приложение через Контакты в "Помощь".
+            Приложений не найдено. Попробуйте другой запрос.
         </div>
     </div>
 
@@ -171,41 +215,31 @@
         <input type="text" id="searchGamesInput" class="search-bar" placeholder="Поиск игр..." oninput="searchGames()">
         <div id="gamesContainer" class="app-container"></div>
         <div id="noGamesResults" class="no-results" style="display: none;">
-            Игр с таким названием не найдено. Попробуйте другой запрос, или предложите свою игру через контакты в "Помощь".
+            Игр не найдено. Попробуйте другой запрос.
         </div>
     </div>
 
     <div id="help" class="tab-content">
         <div class="help-content">
-            <h2>Часто задаваемые вопросы</h2>
+            <h2>Помощь и поддержка</h2>
+            <p>По вопросам обращайтесь на support@404pay.com</p>
+            <p>Телефон: +7 (123) 456-78-90</p>
             
-            <div class="faq-item">
-                <div class="faq-question">Как установить приложение?</div>
-                <div class="faq-answer">
-                    1. Нажмите кнопку "Скачать"<br>
-                    2. Откройте скачанный файл .apk<br>
-                    3. Следуйте инструкциям установщика
-                </div>
+            <h3>Часто задаваемые вопросы</h3>
+            <div>
+                <h4>Как установить приложение?</h4>
+                <p>1. Нажмите кнопку "Скачать"<br>
+                2. Откройте скачанный файл .apk<br>
+                3. Разрешите установку из неизвестных источников<br>
+                4. Следуйте инструкциям установщика</p>
             </div>
             
-            <div class="faq-item">
-                <div class="faq-question">Приложение не устанавливается, что делать?</div>
-                <div class="faq-answer">
-                    - Убедитесь, что на устройстве свободно хотя бы 700 или больше МБ (зависит от приложения)<br>
-                    - Проверьте, ниже ли ваша версия Android, если да, то запросите старую версию.<br>
-                    - Попробуйте перезагрузить устройство. Могут быть сбои в Андроиде, и приложение не устанавливается из-за этого.
-                </div>
+            <div>
+                <h4>Приложение не устанавливается, что делать?</h4>
+                <p>- Проверьте, что на устройстве достаточно памяти<br>
+                - Убедитесь, что версия Android совместима с приложением<br>
+                - Попробуйте перезагрузить устройство и повторить установку</p>
             </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">Как удалить приложение?</div>
-                <div class="faq-answer">
-                    Перейдите в Настройки → Приложения → Выберите нужное приложение → Нажмите "Удалить" (логично)
-                </div>
-            </div>
-            
-            <h2>Контакты поддержки</h2>
-            <p>Telegram: @justmineplayerB</p>
         </div>
     </div>
 
@@ -362,25 +396,48 @@
             displayGames(filteredGames);
         }
 
-        // Переключение вкладок
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Удаляем активный класс у всех вкладок и контента
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
-                // Добавляем активный класс к выбранной вкладке и соответствующему контенту
-                tab.classList.add('active');
-                const tabId = tab.getAttribute('data-tab');
-                document.getElementById(tabId).classList.add('active');
+        // Функция переключения вкладок
+        function showTab(tabId) {
+            // Скрыть все вкладки
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
             });
-        });
+            
+            // Показать выбранную вкладку
+            document.getElementById(tabId).classList.add('active');
+            
+            // Обновить активные вкладки (только для видимых вкладок)
+            if (tabId !== 'help') {
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.remove('active');
+                    if (tab.getAttribute('data-tab') === tabId) {
+                        tab.classList.add('active');
+                    }
+                });
+            }
+            
+            // Скрыть меню
+            document.getElementById('menu').classList.remove('active');
+        }
 
-        // Инициализация - показываем все приложения и игры при загрузке
+        // Инициализация
         window.onload = function() {
             displayApps(apps);
             displayGames(games);
+            
+            // Обработчик клика по кнопке меню
+            document.getElementById('menuBtn').addEventListener('click', function() {
+                document.getElementById('menu').classList.toggle('active');
+            });
+            
+            // Обработчики кликов по вкладкам
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    showTab(tabId);
+                });
+            });
         };
     </script>
 </body>
-</html>
+    </html>
